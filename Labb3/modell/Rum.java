@@ -40,7 +40,7 @@ public class Rum {
 	}
 
 	public int getHöjd() {
-		//returnernar Höjden
+		//returnernar Höjden NEJ!
 		return this.höjd;
 	}
 
