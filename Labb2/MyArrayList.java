@@ -1,3 +1,5 @@
+package Labb2;
+
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Comparator;
@@ -12,7 +14,9 @@ import java.util.function.UnaryOperator;
 
 @SuppressWarnings("serial")
 public class MyArrayList<E> implements Serializable, Cloneable, Iterable<E>,
-         Collection<E>, List<E>, RandomAccess {
+        Collection<E>, List<E>, RandomAccess {
+
+
     private int size;
     private E[] elements;
 
@@ -21,14 +25,11 @@ public class MyArrayList<E> implements Serializable, Cloneable, Iterable<E>,
     public static void main(String[] args) {
         MyArrayList<String> strlist = new MyArrayList<String>();
 
-        // testa metoder härifrån
-
     }
 
     // ---------------------------------------------------------------
 
     public MyArrayList(int initialCapacity) {
-        /* ska implementeras */
         if (initialCapacity < 0) {
             throw new IllegalArgumentException();
         }
@@ -38,7 +39,6 @@ public class MyArrayList<E> implements Serializable, Cloneable, Iterable<E>,
     }
 
     public MyArrayList() {
-        /* ska implementeras */
         this(10);
     }
 
@@ -46,19 +46,19 @@ public class MyArrayList<E> implements Serializable, Cloneable, Iterable<E>,
 
     @Override
     public int size() {
-        /* ska implementeras */
+
         return this.size;
     }
 
     @Override
     public boolean isEmpty() {
-        /* ska implementeras */
+
         return (size() == 0);
     }
 
     @Override
     public void clear() {
-        /* ska implementeras */
+
         if (isEmpty()) {
             return;
         }
@@ -84,15 +84,15 @@ public class MyArrayList<E> implements Serializable, Cloneable, Iterable<E>,
     }
 
     public void trimToSize() {
-        /* ska implementeras */
+
         if (this.size < this.elements.length) {
             Object[] temp = new Object[this.size];
             for (int i = 0; i < this.size; i++) {
-                    temp[i] = elements[i];
-                }
-            this.elements = (E[]) temp;
+                temp[i] = elements[i];
             }
+            this.elements = (E[]) temp;
         }
+    }
 
     // -- 3 --
     private void checkForIndexOutOfBounds(int index)
@@ -104,7 +104,7 @@ public class MyArrayList<E> implements Serializable, Cloneable, Iterable<E>,
 
     @Override
     public void add(int index, E element) {
-        /* ska implementeras */
+
         this.ensureCapacity(this.size + 1);
 
         checkForIndexOutOfBounds(index);
@@ -122,9 +122,9 @@ public class MyArrayList<E> implements Serializable, Cloneable, Iterable<E>,
 
     @Override
     public boolean add(E e) {
-        /* ska implementeras */
+
         add(this.size, e);
-        return true; /* bara med för att Eclipse inte ska klaga */
+        return true;
     }
 
     // -- 4 --
@@ -133,32 +133,29 @@ public class MyArrayList<E> implements Serializable, Cloneable, Iterable<E>,
     public E get(int index) {
         /* ska implementeras */
         checkForIndexOutOfBounds(index);
-        return this.elements[index]; /* bara med för att Eclipse inte ska klaga */
+        return this.elements[index];
     }
 
     @Override
     public E set(int index, E element) {
-        /* ska implementeras */
-        checkForIndexOutOfBounds(index);
 
-        E oldElement = this.elements[index];
+        E oldElement = get(index);
         this.elements[index] = element;
-        return oldElement; /* bara med för att Eclipse inte ska klaga */
+        return oldElement;
     }
 
     // -- 5 --
 
     @Override
     public E remove(int index) {
-        /* ska implementeras */
-        checkForIndexOutOfBounds(index);
-        E oldElement = this.elements[index];
+
+        E oldElement = get(index);
         this.elements[index] = null;
-        return oldElement; /* bara med för att Eclipse inte ska klaga */
+        return oldElement;
     }
 
     protected void removeRange(int fromIndex, int toIndex) {
-        /* ska implementeras */
+
         checkForIndexOutOfBounds(fromIndex);
         checkForIndexOutOfBounds(toIndex);
         for (int i = fromIndex; i < toIndex; i++) {
@@ -171,59 +168,59 @@ public class MyArrayList<E> implements Serializable, Cloneable, Iterable<E>,
 
     @Override
     public int indexOf(Object o) {
-        /* ska implementeras */
+
         for (int i = 0; i < this.size; i++) {
             if (this.elements[i] == o) {
                 return i;
             }
         }
-        return -1; /* bara med för att Eclipse inte ska klaga */
+        return -1;
     }
 
     @Override
     public boolean remove(Object o) {
-        /* ska implementeras */
+
         for (int i = 0; i < this.size; i++) {
             if (this.elements[i] == o) {
                 this.elements[i] = null;
                 return true;
             }
         }
-        return false; /* bara med för att Eclipse inte ska klaga */
+        return false;
     }
 
     @Override
     public boolean contains(Object o) {
-        /* ska implementeras */
-            for (int i = 0; i < this.size; i++) {
-                if (this.elements[i] == o) {
-                    return true;
-                }
+
+        for (int i = 0; i < this.size; i++) {
+            if (this.elements[i] == o) {
+                return true;
             }
-        return false; /* bara med för att Eclipse inte ska klaga */
+        }
+        return false;
     }
 
     // -- 7 --
 
     @Override
     public Object clone() {
-        /* ska implementeras */
+
         MyArrayList<E> cloned = new MyArrayList<>(this.size);
         for (int i = 0; i < this.size; i++) {
             cloned.elements[i] = this.elements[i];
         }
         cloned.size = this.size;
-        return cloned; /* bara med för att Eclipse inte ska klaga */
+        return cloned;
     }
 
     @Override
     public Object[] toArray() {
-        /* ska implementeras */
+
         Object[] toArray = new Object[this.size];
         for (int i = 0; i < this.size; i++) {
             toArray[i] = this.elements[i];
         }
-        return toArray; /* bara med för att Eclipse inte ska klaga */
+        return toArray;
     }
 
     // --- Rör ej nedanstående kod -----------------------------------
