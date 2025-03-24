@@ -1,65 +1,72 @@
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
-public class FIFO {
+public class FIFO implements Queue {
 
-    private ArrayList<Object> queue;
-    private int size;
+private ArrayList<Object> elements;
+private int maxSize;
 
     public FIFO() {
-        queue = new ArrayList<>();
-        size = 0;
+        elements = new ArrayList<>();
+        maxSize = 0;
     }
+    @Override
     public int size() {
-        return size;
-    }
-    public boolean isEmpty() {
-        return size == 0;
+        return elements.size();
     }
 
+    @Override
+    public int maxSize() {
+        return maxSize;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return elements.isEmpty();
+    }
+
+    @Override
     public Object first() {
         if (isEmpty()) {
-            throw new NoSuchElementException();
+            throw new NoSuchElementException("The queue is empty");
         }
-        return this.queue.getFirst();
+        return elements.get(0);
     }
 
+    @Override
     public boolean equals(Object f) {
-        FIFO F = (FIFO) f;
-        if (this.size != F.size()) {
+        FIFO other = (FIFO) f;
+        if (this.size() != other.size()) {
             return false;
         }
-        for (int i = 0; i < this.size; i++) {
-            if (this.queue.get(i) == null && !(F.queue.get(i) == null)) {
+        for (int i = 0; i < this.size(); i++) {
+            if (this.elements.get(i) == null && other.elements.get(i) != null) {
                 return false;
             }
-            if (!this.queue.get(i).equals(F.queue.get(i))) {
+            if (this.elements.get(i) != null && !this.elements.get(i).equals(other.elements.get(i))) {
                 return false;
             }
         }
         return true;
     }
 
+    @Override
     public String toString() {
-        String result = "Queue";
-        for (Object element : queue) {
-            result += "(" + String.valueOf(element) + ")";
+        String result = "Queue: ";
+        for (int i = 0; i < this.size(); i++) {
+            result += "(" + String.valueOf(elements.get(i)) + ") ";
         }
         return result;
     }
 
     public void add(Object item) {
-        queue.add(item);
-        size++;
+        elements.add(item);
     }
 
     public void removeFirst() {
         if (isEmpty()) {
-            throw new NoSuchElementException();
+            throw new NoSuchElementException("The queue is empty");
         }
-        this.queue.removeFirst();
+        elements.remove(0);
     }
-
-
-
 }
